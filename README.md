@@ -1,75 +1,84 @@
-# OpenFrame Overview
+# ⚡ Edge-AI Powered Smart Energy Anomaly Detector  
 
-The OpenFrame Project provides an empty harness chip that differs significantly from the Caravel and Caravan designs. Unlike Caravel and Caravan, which include integrated SoCs and additional features, OpenFrame offers only the essential padframe, providing users with a clean slate for their custom designs.
+**Microwatt Momentum Challenge 2025**  
+Custom DSP + Neural-Net Accelerator for Smart Energy Systems  
 
-<img width="256" alt="Screenshot 2024-06-24 at 12 53 39 PM" src="https://github.com/efabless/openframe_timer_example/assets/67271180/ff58b58b-b9c8-4d5e-b9bc-bf344355fa80">
+---
 
-## Key Characteristics of OpenFrame
+## 📌 Overview  
+This project integrates a **Smart Energy Anomaly Detector** with the open-source **Microwatt POWER CPU core**.  
 
-1. **Minimalist Design:** 
-   - No integrated SoC or additional circuitry.
-   - Only includes the padframe, a power-on-reset circuit, and a digital ROM containing the 32-bit project ID.
+- **DSP Pre-processing (Microwatt software):** Extracts key features from power waveforms (RMS, Crest Factor, Total Harmonic Distortion).  
+- **Edge AI Accelerator (custom RTL):** A lightweight neural network (MLP) that classifies anomalies into *Normal, Spike, Noise, or Harmonic Distortion*.  
+- **End-to-End Flow:** Simulated signals → DSP features → AI Accelerator → Classification → Logged + Visualized.  
 
-2. **Padframe Compatibility:**
-   - The padframe design and pin placements match those of the Caravel and Caravan chips, ensuring compatibility and ease of transition between designs.
-   - Pin types are identical, with power and ground pins positioned similarly and the same power domains available.
+The design is **SKY130-compatible**, reproducible in simulation, and demonstrates how **Edge AI + DSP** can improve power quality monitoring for **smart grids, IoT, and industrial systems**.  
 
-3. **Flexibility:**
-   - Provides full access to all GPIO controls.
-   - Maximizes the user project area, allowing for greater customization and integration of alternative SoCs or user-specific projects at the same hierarchy level.
+---
 
-4. **Simplified I/O:**
-   - Pins that previously connected to CPU functions (e.g., flash controller interface, SPI interface, UART) are now repurposed as general-purpose I/O, offering flexibility for various applications.
+## 🚀 Motivation & Use Cases  
 
-The OpenFrame harness is ideal for those looking to implement custom SoCs or integrate user projects without the constraints of an existing SoC.
+### Why This Matters  
+Modern power systems face challenges like **voltage spikes, harmonic distortion, and noisy loads**. Detecting these anomalies **in real time at the edge**:  
+- Prevents equipment damage.  
+- Improves grid efficiency.  
+- Reduces downtime in factories.  
+- Enhances safety in homes and IoT devices.  
 
-## Features
+### Real-World Applications  
+- **⚡ Smart Grids:** Smart meters with local anomaly detection → early fault detection before blackouts.  
+- **🏭 Industrial Maintenance:** Detects abnormal motor/pump signatures → enables predictive maintenance.  
+- **🏠 IoT & Consumer Safety:** Prevents fire hazards by shutting down faulty appliances immediately.  
+- **🔋 Renewables & EV Charging:** Detects harmonics and surges in inverters/chargers → protects electronics.  
 
-1. 44 configurable GPIOs.
-2. User area of approximately 15mm².
-3. Supports digital, analog, or mixed-signal designs.
+---
 
-# openframe_timer_example
+## 🛠️ Technical Approach  
 
-This example implements a simple timer and connects it to the GPIOs.
+**System Flow:**  
 
-## Installation and Setup
 
-First, clone the repository:
+**Key Components:**  
+- **Microwatt CPU:** Runs software to compute RMS, Crest Factor, THD.  
+- **Neural-Net Accelerator (RTL, Verilog/VHDL):** Implements a quantized MLP (int8 weights, int16 accumulators).  
+- **Driver Software (C):** Loads weights, manages accelerator, retrieves outputs.  
+- **Python Toolchain:**  
+  - Generates synthetic waveforms (normal + anomalies).  
+  - Trains & quantizes NN model.  
+  - Provides golden reference for verification.  
+  - Visualizes results (plots).  
 
-```bash
-git clone https://github.com/efabless/openframe_timer_example.git
-cd openframe_timer_example
-```
+---
 
-Then, download all dependencies:
+## 📊 Features  
+- DSP features: **RMS, Crest Factor, THD**.  
+- Lightweight MLP accelerator (hidden layer + ReLU).  
+- Streaming mode: sliding window anomaly detection.  
+- Python verification with golden model.  
+- SKY130-compatible RTL design.  
 
-```bash
-make setup
-```
+---
 
-## Hardening the Design
+## 📅 Development Timeline  
 
-In this example, we will harden the timer. You will need to harden your own design similarly.
+| Week | Tasks |
+|------|-------|
+| **1** | Dataset generation, NN training + quantization, interface spec |
+| **2** | RTL core blocks (MAC, ReLU, weight storage), unit tests |
+| **3** | Integrate MLP, verify inference vs. Python golden model |
+| **4** | DSP feature extraction in Microwatt, connect end-to-end |
+| **5** | Streaming pipeline (sliding window), visualization of anomalies |
+| **6** | Final polish: performance analysis, docs, demo video |
 
-```bash
-make user_proj_timer
-```
+---
 
-Once you have hardened your design, integrate it into the OpenFrame wrapper:
+## ✅ Success Criteria  
+- ≥90% classification accuracy on test signals.  
+- ≥5× faster classification vs. CPU-only baseline.  
+- End-to-end real-time simulation demo.  
+- Fully reproducible repo (scripts + testbenches).  
 
-```bash
-make openframe_project_wrapper
-```
+---
 
-## Important Notes
-
-1. **Connecting to Power:**
-   - Ensure your design is connected to power using the power pins on the wrapper.
-   - Use the `vccd1_connection` and `vssd1_connection` macros, which contain the necessary vias and nets for power connections.
-
-2. **Flattening the Design:**
-   - If you plan to flatten your design within the `openframe_project_wrapper`, do not buffer the analog pins using standard cells.
-
-3. **Running Custom Steps:**
-   - Execute the custom step in OpenLane that copies the power pins from the template DEF. If this step is skipped, the precheck will fail, and your design will not be powered.
+## 📈 Impact  
+By combining **classic DSP** with **Edge AI acceleration**, this project provides a **low-cost, scalable, and practical solution** for real-time anomaly detection in energy systems. It is designed to be reproducible, SKY130-compatible, and aligned with the goals of the **Microwatt Momentum Challenge 2025**.  
