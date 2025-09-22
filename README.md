@@ -1,41 +1,46 @@
 # ⚡ Edge-AI Powered Smart Energy Anomaly Detector  
 
 **Microwatt Momentum Challenge 2025**  
-Custom DSP + Neural-Net Accelerator for Smart Energy Systems  
+Custom DSP + Neural-Net Accelerator showcasing Edge AI in energy anomaly detection  
 
 ---
 
 ## 📌 Overview  
-This project integrates a **Smart Energy Anomaly Detector** with the open-source **Microwatt POWER CPU core**.  
+This project demonstrates how **Edge AI** can bring intelligence directly into embedded systems by combining a **Microwatt POWER CPU** with a **custom neural-net accelerator**.  
 
-- **DSP Pre-processing (Microwatt software):** Extracts key features from power waveforms (RMS, Crest Factor, Total Harmonic Distortion).  
-- **Edge AI Accelerator (custom RTL):** A lightweight neural network (MLP) that classifies anomalies into *Normal, Spike, Noise, or Harmonic Distortion*.  
+As a proof of concept, I will implement a **Smart Energy Anomaly Detector**:  
+- **DSP Pre-processing (Microwatt software):** Extracts key signal features (RMS, Crest Factor, THD).  
+- **Edge AI Accelerator (custom RTL):** A quantized neural network (MLP) classifies anomalies into *Normal, Spike, Noise, or Harmonic Distortion*.  
 - **End-to-End Flow:** Simulated signals → DSP features → AI Accelerator → Classification → Logged + Visualized.  
-
-The design is **SKY130-compatible**, reproducible in simulation, and demonstrates how **Edge AI + DSP** can improve power quality monitoring for **smart grids, IoT, and industrial systems**.  
 
 ---
 
-## 🚀 Motivation & Use Cases  
+## 🚀 Motivation  
 
-### Why This Matters  
-Modern power systems face challenges like **voltage spikes, harmonic distortion, and noisy loads**. Detecting these anomalies **in real time at the edge**:  
-- Prevents equipment damage.  
-- Improves grid efficiency.  
-- Reduces downtime in factories.  
-- Enhances safety in homes and IoT devices.  
+The core motivation of this project is to explore and showcase the **power of Edge AI**:  
+- Traditional systems rely on **cloud-based analytics** or **simple DSP thresholds**, which are either too slow, too costly, or too limited.  
+- By moving **AI inference directly to the edge**, devices become **faster, smarter, and autonomous**.  
+- The **Microwatt core + AI accelerator** combination provides a lightweight, open-source platform to demonstrate this vision.  
 
-### Real-World Applications  
-- **⚡ Smart Grids:** Smart meters with local anomaly detection → early fault detection before blackouts.  
-- **🏭 Industrial Maintenance:** Detects abnormal motor/pump signatures → enables predictive maintenance.  
-- **🏠 IoT & Consumer Safety:** Prevents fire hazards by shutting down faulty appliances immediately.  
-- **🔋 Renewables & EV Charging:** Detects harmonics and surges in inverters/chargers → protects electronics.  
+I chose **Smart Energy anomaly detection** as the demonstration use case because:  
+- It’s highly relevant (spikes, distortion, noise in power systems).  
+- It showcases how AI can distinguish **subtle, nonlinear patterns** that DSP alone cannot.  
+- It connects to real-world needs in **smart grids, IoT safety, renewable energy, and industrial systems**.  
+
+---
+
+## 🌟 Advantages of Edge AI  
+
+- **⚡ Real-Time Intelligence:** Instant decisions without cloud latency.  
+- **📉 Cost-Efficient:** Lower bandwidth and server costs by keeping data local.  
+- **🔋 Energy-Saving:** Hardware acceleration reduces inference cycles and power.  
+- **🛡️ Reliable & Autonomous:** Works even when offline or disconnected.  
+- **🔒 Privacy by Design:** Sensitive usage patterns never leave the device.  
+- **🤖 Beyond Thresholds:** Learns complex fault patterns instead of fixed rules.  
 
 ---
 
 ## 🛠️ Technical Approach  
-
-**System Flow:**  
 
 
 **Key Components:**  
@@ -50,14 +55,6 @@ Modern power systems face challenges like **voltage spikes, harmonic distortion,
 
 ---
 
-## 📊 Features  
-- DSP features: **RMS, Crest Factor, THD**.  
-- Lightweight MLP accelerator (hidden layer + ReLU).  
-- Streaming mode: sliding window anomaly detection.  
-- Python verification with golden model.  
-- SKY130-compatible RTL design.  
-
----
 
 ## 📅 Development Timeline  
 
@@ -72,13 +69,8 @@ Modern power systems face challenges like **voltage spikes, harmonic distortion,
 
 ---
 
-## ✅ Success Criteria  
-- ≥90% classification accuracy on test signals.  
-- ≥5× faster classification vs. CPU-only baseline.  
-- End-to-end real-time simulation demo.  
-- Fully reproducible repo (scripts + testbenches).  
-
----
 
 ## 📈 Impact  
-By combining **classic DSP** with **Edge AI acceleration**, this project provides a **low-cost, scalable, and practical solution** for real-time anomaly detection in energy systems. It is designed to be reproducible, SKY130-compatible, and aligned with the goals of the **Microwatt Momentum Challenge 2025**.  
+This project is a **case study in Edge AI** — demonstrating how embedding intelligence into hardware transforms anomaly detection from simple thresholds into **adaptive, real-time classification**.  
+
+The **Smart Energy use case** is just the beginning: the same Edge AI accelerator design can be applied to **vibration analysis, audio keyword spotting, IoT security, or biomedical signals** — proving the broader value of **AI at the edge**.  
